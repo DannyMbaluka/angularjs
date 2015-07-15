@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Directives explained</title>
+        <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="script.js" type="text/javascript"></script>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container" ng-controller="MainController">
+            <h2>Directives explained</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Scope Inheritance</h4>
+                    <h5>Inside MainController</h5>
+                    <div>
+                        {{rootvar}}
+                    </div>
+                    <div ng-controller="ChildController">
+                        <h5>Inside ChildController</h5>
+                        <p>Prototypal inheritance of scope by a controller from the surrounding context</p>
+                        {{rootvar}}
+                        <h5>In a directive inside ChildController, with {... scop: true, ...}</h5>
+                        <div my-dir></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4>Isolate scope</h4>
+                    <p>The main use case for such directives is reusable widgets that can be shared and used in
+                        unexpected contexts without polluting the scope around them or having their internal scope
+                        corrupted inadvertently.</p>
+                    <div isolate-scope>
+
+                    </div>
+                    <input type="text" ng-model="firstname">
+                    <div test-dir firstname="firstname"></div>
+                </div>
+                <div class="col-md-3">
+                    <h4>Binding Strategies</h4>
+                    <h5>Local scope property</h5>
+                    <p>Binding a local scope (string) to the value of the <em>DOM attribute</em>, use the
+                        <strong>@</strong> symbol</p>
+                    <input type="text" ng-model="localtochild">
+                    <div isolate-scope-demo localtochild="{{localtochild}}"></div>
+                    <h5>Bi-directional binding</h5>
+                    <p>A bi-directional binding can be set up between the local scope property
+                        and the parent property using the = symbol. If the parent model changes, just like in normal data-
+                        binding then the local property will reflect the change.</p>
+                    <input type="text" ng-model="firstname">
+                    <div test-dir firstname="firstname"></div>
+                    <h5>Parent execution binding</h5>
+                    <input type="text" ng-model="to" />
+                    <!-- Invoke the directive -->
+                    <div scope-example ng-model="to"
+                         on-send="sendMail(email)"
+                         from-name="ari@fullstack.io" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Transclusion</h4>
+                <p>Transclude allows us to pass in an entire template, including its scope, to a directive. Doing
+                    so gives us the opportunity to pass in arbitrary content and arbitrary scope to a directive. The
+                    transclude option makes it so that the contents of the directive have the scope of the outside
+                    directive, which gives the template access to the outside scope object. The
+                    transclude option makes it so that the contents of the directive have the scope of the outside
+                    directive, which gives the template access to the outside scope object.</p>
+                <div nav-bar brand="Mbalukas">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <h4>Directive Controller</h4>
+            <div controlled-dir class="text-class">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

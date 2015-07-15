@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Directives</title>
+        <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="script.js" type="text/javascript"></script>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <h2>Directives: Custom HTML Elements and Attributes</h2>
+        <div class="container" ng-controller="MainController">
+            <div class="row">
+                <div class="col-md-3" ng-controller="ChildScope">
+                    <h4>Scope and Inheritance</h4>
+                    <ul>
+                        <li>{{root}}</li>
+                        <li>{{parent}}</li>
+                        <li>{{child}}</li>
+                    </ul>
+                    {{fromctrl}}
+                </div>
+                <div class="col-md-3">
+                    <h4>No isolate scope</h4>
+                    <div my-button></div>
+                    <h4>Isolate - passing data</h4>
+                    <div my-dir my-link="https://wikipedia.com" my-text="Wikipedia"></div>
+                    <p>Now, inside of our fresh scope object, we set the value of someProperty to the binding strategy,
+                        @ . This binding strategy tells Angular to copy the value provided by the attribute some-property
+                        in the DOM to the value of someProperty on our fresh scope object:
+                        scope: {
+                        someProperty: '@'
+                        }</p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Parent to child, not the other way</h4>
+                    <input type="text" ng-model="firstname" required>
+                    <div name-dir first-name="{{firstname}}"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" ng-controller="ChildScope">
+                    <h4>Own 2-way binding</h4>
+                    <form>
+                        <label>External link text</label>
+                        <input type="text" ng-model="displaytext">
+                        <div two-way display-text="displaytext" link="https://google.com"></div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

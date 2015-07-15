@@ -1,0 +1,18 @@
+<div class="container">
+    <h2>Angular Module Loading</h2>
+    <a href="#admin">Admin</a>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>.config(function(){})</h4>
+            <p>When writing configuration for a module, it’s important to note that there are only a few types
+                of objects that we can inject into the .config() function: providers and constants</p>
+        </div>
+        <div class="col-md-3">
+            <h4>.run(function(){})</h4>
+            <p>Unlike the configuration blocks, run blocks are executed after the injector is created and are the
+                first methods that are executed in any Angular app. Typically, these run blocks are places where we’ll set up event listeners that should happen at
+                the global scale of the app. For example, we’ll use the .run() block to set up listeners for routing
+                events or unauthenticated requests.</p>
+        </div>
+    </div>
+</div>

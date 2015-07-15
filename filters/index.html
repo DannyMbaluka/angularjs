@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Filters</title>
+        <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="script.js" type="text/javascript"></script>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container" ng-controller="MainController">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Form Validation</h4>
+                    <form name="signup_form" novalidate ng-submit="signUp()">
+                        <label>Name</label>
+                        <input type="text" required ng-minlength="5" ng-maxlength="20" ng-model="user.name" name="name">
+                        <div class="error"
+                             ng-show="signup_form.name.$dirty && signup_form.name.$invalid && signup_form.submitted">
+                            <small class="error"
+                                   ng-show="signup_form.name.$error.required">
+                                Your name is required.
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.name.$error.minlength">
+                                Your name is required to be at least 5 characters
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.name.$error.maxlength">
+                                Your name cannot be longer than 20 characters
+                            </small>
+                        </div>
+                        <label>Email</label>
+                        <input type="email" ng-model="user.email" required name="email">
+                        <div class="error"
+                             ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
+                            <small class="error"
+                                   ng-show="signup_form.email.$error.required">
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.email.$error.minlength">
+                                Your email is required to be at least 3 characters
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.email.$error.email">
+                                That is not a valid email. Please input a valid email.
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.email.$error.maxlength">
+                                Your email cannot be longer than 20 characters
+                            </small>
+                        </div>
+                        <label>Age</label>
+                        <input type="number" name="age" ng-model="user.age" required min="10" max="100" ng-focus/>
+                        <div class="error" ng-show="signup_form.age.$dirty && signup_form.age.$invalid && !signup_form.age.$focused">
+                            <small class="error"
+                                   ng-show="signup_form.age.$error.min">
+                                Your age must be greater than 10 years
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.age.$error.required">
+                                Please enter your age
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.age.$error.max">
+                                Your age must be greater than 100 years
+
+                            </small>
+                            <small class="error"
+                                   ng-show="signup_form.age.$error.number">
+                                Please enter a number
+                            </small>
+                        </div>
+                        <input type="submit" value="Sign Up" ng-disabled="">
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h4>Angular Messages</h4>
+                    <form name="signup_form2" novalidate
+                          ng-submit="signupForm()"
+                          ng-controller="MainController">
+                        <label>Your name</label>
+                        <input type="text"
+                               placeholder="Name"
+                               name="name"
+                               ng-model="signup.name"
+                               ng-minlength=3
+                               ng-maxlength=20 required />
+                        <div class="error"
+                             ng-messages="signup_form2.name.$error">
+                            <div ng-message="required">
+                                Make sure you enter your name
+                            </div>
+                            <div ng-message="minlength">
+                                Your name must be at least 3 characters
+                            </div>
+                            <div ng-message="maxlength">
+                                Your name cannot be longer than 20 characters
+                            </div>
+                        </div>
+                        <button type="submit" >Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h4>Angular Messages + Template</h4>
+                    <form name="signup3" novalidate>
+                        <label>Email</label>
+                        <input name="email" ng-model="login.email" required ng-minlength="5">
+                        <div class="error"
+                             ng-messages="signup3.email.$error">
+                            <div ng-message="required">
+                                Please enter your email
+                            </div>
+                            <div ng-message="minlength">
+                                Your email must be at least 5 characters
+                            </div>
+                            <div ng-message="email">
+                                Your email is not valid
+                            </div>
+                        </div>
+                        <label>Username</label>
+                        <input type="text" name="username" ng-model="login.username" required ng-minlength="5"> 
+                        <div class="error" ng-messages="signup3.username.$error">
+                            <div ng-messages-include="templates/error.html"></div>
+                        </div>
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

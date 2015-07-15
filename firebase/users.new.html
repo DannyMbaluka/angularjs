@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <a href="#users" class="btn btn-primary">Users</a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h4>Adding a new User</h4>
+            <form>
+                <label>First name</label>
+                <input type="text" ng-model="user.fname" required>
+                <label>Last name</label>
+                <input type="text" ng-model="user.lname" required>
+                <label>Email</label>
+                <input type="email" ng-model="user.email" required>
+                <input type="submit" value="Add User" class="btn btn-success" ng-click="addUser()">
+            </form>
+        </div>
+    </div>
+</div>

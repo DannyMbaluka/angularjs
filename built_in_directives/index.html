@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Built-in Directives</title>
+        <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="script.js" type="text/javascript"></script>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container" ng-controller="MainController">
+            <h2>In-built ng-* directives</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>(Boolean attributes)ng-disabled vs HTML5 disabled</h4>
+                    <ul>
+                        <li>readonly > ng-readonly</li>
+                        <li>checked > ng-checked</li>
+                        <li>selected > ng-selected</li>
+                    </ul>
+                    <form>
+                        <label>Enter text to enable button</label>
+                        <input type="text" ng-model="text">
+                        <input type="submit" ng-disabled="!text" value="Submit">
+                        <input type="text" placeholder="Without angular">
+                    </form>
+                </div>
+                <div class="col-md-3">
+                    <h4>Boolean-like Attributes</h4>
+                    <h5>1. ng-href vs href</h5>
+                    <a ng-href="{{myHref}}">I'm feeling lucky, when I load</a>
+                    <br>
+                    <!-- href may not load before user clicks -->
+                    <a href="{{myHref}}">I'm feeling 404</a>
+                    <h5>2. ng-src vs src</h5>
+                    <h6>Wrong Way</h6>
+                    <img src="{{imgSrc}}" width="100"/>
+                    <h6>Right way</h6>
+                    <img ng-src="{{imgSrc}}" width="100"/>
+                </div>
+            </div>
+            <div class="row">
+                <h2>Directives with Child Scope</h2>
+                <div class="col-md-3">
+                    <h4>ng-app</h4>
+                    {{test}}
+                </div>
+                <div class="col-md-3">
+                    <h4>ng-controller</h4>
+                    <p>Instead of defining actions and models on $rootScope , use ng-controller , which is a built-in
+                        directive whose purpose is to provide a child scopes for the directives that are nested inside. We’ll
+                        use this directive to place a controller on a DOM element.A child $scope is simply a JavaScript object that prototypically inherits methods and properties
+                        from its parent $scope (s), including the application’s $rootScope .</p>
+                    <p>$scope typically contains <em>models</em> and <em>actions</em></p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Prototypal inheritance</h4>
+                    <h5>From parent</h5>
+                    {{commonValue}}//Simple value
+                    <button ng-click="changeValue()">Update</button>
+                    <br>
+                    <button ng-click="add()">Add</button>
+                    {{strings}}//Complex object
+                    <div ng-controller="ChildCtrl">
+                        <h5>From child</h5>
+                        {{commonValue}}
+                        <button ng-click="changeValue()">Update</button>
+                    </div>
+                    <p>Doing so makes it clear that the child controller has copy, not a reference to someBareValue . JavaScript objects are either copy by value or copy by reference. String, Number, and
+                        Boolean are copy by value. Array, Object, and Function are copy by reference.</p>
+                    {{commonValue}}//Simple value
+                    <br>
+                    <button ng-click="add()">Add</button>
+                    {{strings}}//Complex object
+                </div>
+            </div>
+            <div class="row">
+                <h2>ng-*, which create their own scope</h2>
+                <div class="col-md-3">
+                    <h4>ng-include</h4>
+                    <div ng-include="'partial.html'">
+                    </div>
+                    <hr>
+                    <div ng-include="'partial_1.html'" ng-controller="ChildCtrl">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4>ng-if</h4>
+                    <div ng-if="2 + 3 === 10">
+                        This will never be seen
+                    </div>
+                    <div ng-if="2 + 2 === 4">
+                        This div is below another div, whose expression will never evaluate to
+                        true, and therefore will never be seen.
+                        <p>ng-if differs from ng-show and ng-hide in that it actually removes and recreates DOM nodes,
+                            rather than just showing and hiding them via CSS.
+                            When an element is removed from the DOM using ng-if , its associated scope is destroyed.
+                            Furthermore, when it comes back into being, a new scope is created and inherits from its parent
+                            scope using prototypal inheritance.
+                            It’s also important be aware that ngIf recreates elements using their compiled state. If code inside
+                            of ng-if is loaded, is manipulated using jQuery (for example, using .addClass ), then is removed
+                            because the expression inside the ng-if becomes false, then when the expression later becomes
+                            true again, the DOM element and its children will be reinserted into the DOM in their original
+                            state, not the state they had when they left the DOM. That means that whatever class was added
+                            using jQuery’s .addClass will no longer be present.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" ng-cloak>
+                    <h4>ng-cloak</h4>
+                    <p>The ng-cloak directive hides all of the elements on a page until the page has been resolved by
+                        the route.</p>
+                    <h4>ng-model</h4>
+                    <input type="text" ng-model="objectOnScope.property">
+                    <p>It binds to the property given by evaluating the expression on the current scope. If the property
+                        doesn’t already exist on this scope, it will be created implicitly and added to the scope.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>ng-model-options</h2>
+                    <p>ngModelOptions allows you to tune how ng-model updates are done.
+                        The two most useful options to ngModelOptions are updateOn and debounce .</p>
+                    <h4>{ updateOn: 'blur' }</h4>
+                    <input type="text"
+                           ng-model="user.name"
+                           ng-model-options="{ updateOn: 'blur' }" />
+                    Hello {{user.name}}<br>
+                    <h4>{ updateOn: 'blur' }</h4>
+                    <input type="text"
+                           ng-model="user.name"
+                           ng-model-options="{ debounce: 1500 }" />
+                    Hello {{user.name}}
+                </div>
+                <div class="col-md-3">
+                    <h4>ng-change</h4>
+                    <p>This directive evaluates the given expression when the input changes. As we’re dealing with
+                        input, we must use this directive in conjunction with ngModel .</p>
+                    <select ng-model="gender" ng-change="checkGender()">
+                        <option value="Male">Male</option>
+                        <option value="Male">Female</option>
+                        <option value="Male">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <h4>ng-form</h4>
+                    <p>We use ng-form when we need to nest a form within another form. The normal HTML 
+                        tag doesn’t allow us to nest our forms, but ng-form will.
+                        That means that the outer form is valid when all of the child forms are valid, as well. This fact
+                        is especially useful when dynamically generating forms using ng-repeat .
+                        Because we cannot dynamically generate the name attribute of input elements using interpola-
+                        tion, we need to wrap each set of repeated inputs in an ng-form directive and nest these in an
+                        outer form element.</p>
+                    <form name="signup_form"
+                          ng-submit="submitForm()" novalidate>
+                        <div ng-repeat="field in fields"
+                             ng-form="signup_form_input">
+                            <input type="text"
+                                   name="dynamic_input"
+                                   ng-required="field.isRequired"
+                                   ng-model="field.name"
+                                   placeholder="{{field.placeholder}}" />
+                            <div
+                                ng-show="signup_form_input.dynamic_input.$dirty &&
+                                                    signup_form_input.dynamic_input.$invalid">
+                                <span class="error"
+                                      ng-show="signup_form_input.dynamic_input.$error.required">
+                                    The field is required.
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit"
+                                ng-disabled="signup_form.$invalid">
+                            Submit All
+                        </button>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>ng-select</h4>
+                        <select ng-model="city"
+                                ng-options="city.name for city in cities">
+                            <option value="">Choose City</option>
+                        </select>
+                        Best City: {{ city.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

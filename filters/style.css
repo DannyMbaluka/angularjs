@@ -1,0 +1,11 @@
+@import "../theme/main.css";
+
+input.ng-dirty {
+    border: 1px solid #5edff2;
+}
+input.ng-invalid {
+    border: 1px solid red;
+}
+input.ng-valid {
+    border: 1px solid greenyellow;
+}

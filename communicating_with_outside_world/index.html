@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Filters</title>
+        <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js" type="text/javascript"></script>
+        <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
+        <script src="script.js" type="text/javascript"></script>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container" ng-controller="MainController">
+            <h2>Communicating with the outside world</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>$https</h4>
+                    <p>Since the $http method returns a promise object, we can use the then method to handle the
+                        callback when the response is ready. If we use the then method, we’ll get a special argument that
+                        represents the response object for both success and error. Then receives optionally 2 functions
+                        as a parameter. Otherwise, we can use the success and error callbacks instead.</p>
+                    <div ng-repeat="user in users">
+                        {{user}}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4>$https configuration</h4>
+                    <p>
+                        $http({
+                        method: "GET", //Can also be POST, HEAD, DELETE & JSONP<br>
+                        url: "users.json", //Can be relative or absolute<br>
+                        params: {"name": "Daniel Mbaluka", "age": 50}, //Resolve into queryparams<br>
+                        data: {"firstname": "Daniel Mbaluka", "age": 40}, //Corresponds to POST data<br>
+                        headers: {"Accept": "application/json", "Content-type": "application/json"},<br>
+                        transformRequest: function (data, headers) {<br>
+                        return {<br>
+                        data: data,<br>
+                        headers: headers<br>
+                        };<br>
+                        },<br>
+                        transformResponse: function (data, headers) {<br>
+                        return {<br>
+                        data: data,<br>
+                        headers: headers<br>
+                        };<br>
+                        },<br>
+                        cache: true,<br>
+                        timeout: 5000,<br>
+                        withCredentials: true,<br>
+                        responseType: "json",<br>
+                        paramSerializer: $httpParamSerializer<br>
+                        });<br>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h4>Response object (in .then())</h4>
+                    <p>Contains</p>
+                    <ul>
+                        <li>data - This data represents the transformed response body (if any transformations are defined).</li>
+                        <li>status (number) - This number is the HTTP status code of the response.</li>
+                        <li>headers - </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Caching</h4>
+                    .config(["$httpProvider", "$cacheFactory", function ($httpProvider, <br>
+                    $cacheFactory) {<br>
+                    $httpProvider.defaults.cache = $cacheFactory("lru", {<br>
+                    capacity: 20<br>
+                    });<br>
+                    }<br>
+                    ])<br>
+                </div>
+                <div class="col-md-3">
+                    <h4>Interceptors</h4>
+                    <h5>request</h5>
+                    Angular calls the request interceptor with the $http config object. It can modify the config object
+                    or create a new one, and it is responsible for returning the updated config object or a promise
+                    that resolves a new config object.
+                    <h5>response</h5>
+                    Angular calls the response interceptor with the $http response object. The function can modify
+                    the response or create a new one. It’s responsible for returning the response or a promise that
+                    resolves a new response object.
+                    <h5>requestError</h5>
+                    Angular calls this interceptor when the previous request interceptor throws an error or is resolved
+                    with a rejection
+                    <h5>responseError</h5>
+                    We receive this error when the previous response interceptor throws an error or is resolved with
+                    a rejection.
+                </div>
+                <div class="col-md-3">
+                    <form>
+                        <label>Author</label>
+                        <input type="text" ng-model="author.$value" required>
+                        <button ng-click="test();">Submit</button>
+                    </form>
+                    <h4>$resource</h4>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

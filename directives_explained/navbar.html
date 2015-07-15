@@ -1,0 +1,22 @@
+<style>
+    ul{
+        list-style-type: none;
+    }
+    ul > li{
+        display: inline;
+    }
+    ul > li > a{
+        text-decoration: none;
+    }
+    .brand{
+        background-color: gray;
+        color: white;
+        padding: 5px 5px;
+    }
+</style>
+<div>
+    <div class="brand">{{brand}}</div>
+    <div style="float: right">
+        <div ng-transclude ></div>
+    </div>
+</div>
