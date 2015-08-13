@@ -1,0 +1,18 @@
+<div>
+    <div class="nav navbar navbar-default">
+        <div class="container">
+            <div class="navbar-brand"><a ui-sref="app">Palvac Group</a>
+            </div>
+            <div class="pull-right">
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="app.products">Products</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.services">Services</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div ui-view="content"></div>
+    </div>
+</div>

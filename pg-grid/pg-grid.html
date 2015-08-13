@@ -1,0 +1,30 @@
+<div>
+    <table class="pg-grid">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Dessert</th>
+                <th>Calories</th>
+                <th class="sorted">Fat</th>
+                <th>Carbs</th>
+                <th>Protein</th>
+                <th>Sodium</th>
+                <th>Calcium</th>
+                <th>Iron</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in config.data">
+                <td>{{$index + 1}}</td>
+                <td>{{item.dessert}}</td>
+                <td>{{item.calories}}</td>
+                <td>{{item.fat}}</td>
+                <td>{{item.carbs}}</td>
+                <td>{{item.protein}}</td>
+                <td>{{item.sodium}}</td>
+                <td>{{item.calcium}}</td>
+                <td>{{item.iron}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
